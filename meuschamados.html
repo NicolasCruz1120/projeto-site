@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - SoluçõesIT</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="meus-chamados.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container-header">
+            <h1 class="logo">SoluçõesIT</h1>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="cadastro.html">Cadastro</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="welcome">
+        <h2>Chamados de <span id="username">Usuário</span></h2>
+        <p>
+            Consulte aqui seus chamados
+        </p>
+        <a href="chamados.html">Crie um novo chamado</a>.
+    </section>
+
+    <main class="content">
+        <div class="chamados-container">
+            <ul id="lista-chamados">
+                <li class="lista-header">
+                    <span><b>Tipo de aparelho</b></span>
+                    <span><b>Marca / Modelo</b></span>
+                    <span><b>Problema</b></span>
+                    <span><b>Data</b></span>
+                    <span><b>Ações</b></span>
+                </li>
+            </ul>
+        </div>
+    
+        <div id="modal-detalhes" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Detalhes do Chamado</h2>
+                <p><strong>Tipo:</strong> <span id="modal-tipo"></span></p>
+                <p><strong>Marca:</strong> <span id="modal-marca"></span></p>
+                <p><strong>Problema:</strong> <span id="modal-problema"></span></p>
+                <p><strong>Data:</strong> <span id="modal-data"></span></p>
+                <p><strong>Status:</strong> <span id="modal-status"></span></p>
+                <p><strong>Acompanhamento:</strong> <span id="modal-acompanhamento"></span></p>
+                <p><strong>Resolução:</strong> <span id="modal-resolucao"></span></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 SoluçõesIT. Todos os direitos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="">Política de Privacidade</a></li>
+                <li><a href="">Termos de Uso</a></li>
+                <li><a href="">Contato</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

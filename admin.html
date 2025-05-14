@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - SoluçõesIT</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="admin.js" defer></script>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container-header">
+            <h1 class="logo">SoluçõesIT - Painel Admin</h1>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="admin.html">Início</a></li>
+                    <li><a href="meus-chamados.html">Chamados</a></li>
+                    <li><a href="admin.html" class="active">Painel Admin</a></li>
+                    <li><a href="login.html">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="admin-dashboard">
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h3><i class="fas fa-ticket-alt"></i> Chamados</h3>
+                <button class="dashboard-btn" onclick="filtrarChamados('aberto')">
+                    <i class="fas fa-exclamation-circle"></i> Pendentes
+                    <span class="badge" id="badge-pendentes">0</span>
+                </button>
+                <button class="dashboard-btn" onclick="filtrarChamados('em_andamento')">
+                    <i class="fas fa-tools"></i> Em Andamento
+                    <span class="badge" id="badge-andamento">0</span>
+                </button>
+                <button class="dashboard-btn" onclick="filtrarChamados('resolvido')">
+                    <i class="fas fa-check-circle"></i> Resolvidos
+                    <span class="badge" id="badge-resolvidos">0</span>
+                </button>
+            </div>
+    
+
+            <div class="dashboard-card">
+                <h3><i class="fas fa-users"></i> Usuários</h3>
+                <button class="dashboard-btn" onclick="abrirModalUsuarios()">
+                    <i class="fas fa-user-cog"></i> Gerenciar
+                </button>
+                <button class="dashboard-btn" onclick="exportarUsuarios()">
+                    <i class="fas fa-file-export"></i> Exportar Lista
+                </button>
+                <button class="dashboard-btn btn-alert" onclick="limparSessoes()">
+                    <i class="fas fa-sign-out-alt"></i> Encerrar Todas as Sessões
+                </button>
+            </div>
+
+            <div class="dashboard-card">
+                <h3><i class="fas fa-chart-bar"></i> Relatórios</h3>
+                <button class="dashboard-btn" onclick="gerarRelatorio('semanal')">
+                    <i class="fas fa-calendar-week"></i> Semanal
+                </button>
+                <button class="dashboard-btn" onclick="gerarRelatorio('mensal')">
+                    <i class="fas fa-calendar-alt"></i> Mensal
+                </button>
+                <button class="dashboard-btn" onclick="abrirAnalytics()">
+                    <i class="fas fa-chart-line"></i> Estatísticas
+                </button>
+            </div>
+
+            <div class="dashboard-card">
+                <h3><i class="fas fa-tools"></i> Ferramentas</h3>
+                <button class="dashboard-btn" onclick="abrirBackup()">
+                    <i class="fas fa-database"></i> Backup
+                </button>
+                <button class="dashboard-btn" onclick="abrirLogs()">
+                    <i class="fas fa-clipboard-list"></i> Logs do Sistema
+                </button>
+                <button class="dashboard-btn btn-alert" onclick="abrirManutencao()">
+                    <i class="fas fa-power-off"></i> Modo Manutenção
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="content">
+        <div class="admin-controls">
+            <div class="search-filter">
+                <input type="text" id="search-input" placeholder="Buscar chamados...">
+                <select id="status-filter">
+                    <option value="all">Todos os status</option>
+                    <option value="aberto">Aberto</option>
+                    <option value="em_andamento">Em andamento</option>
+                    <option value="resolvido">Resolvido</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="chamados-container">
+            <ul id="lista-chamados">
+                <li class="lista-header">
+                    <span><b>Usuário</b></span>
+                    <span><b>Tipo</b></span>
+                    <span><b>Marca/Modelo</b></span>
+                    <span><b>Problema</b></span>
+                    <span><b>Data</b></span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="modal-detalhes" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Detalhes do Chamado</h2>
+                
+                <div class="modal-grid">
+                    <div class="modal-info">
+                        <p><strong>Usuário:</strong> <span id="modal-usuario"></span></p>
+                        <p><strong>Tipo:</strong> <span id="modal-tipo"></span></p>
+                        <p><strong>Marca/Modelo:</strong> <span id="modal-marca"></span></p>
+                        <p><strong>Data:</strong> <span id="modal-data"></span></p>
+                        <p><strong>Problema:</strong> <span id="modal-problema"></span></p>
+                    </div>
+                    
+                    <div class="modal-edits">
+                        <div class="form-group">
+                            <label for="edit-status">Status:</label>
+                            <select id="edit-status">
+                                <option value="aberto">Aberto</option>
+                                <option value="em_andamento">Em andamento</option>
+                                <option value="resolvido">Resolvido</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-acompanhamento">Acompanhamento:</label>
+                            <textarea id="edit-acompanhamento" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-alteracoes">Alterações:</label>
+                            <textarea id="edit-alteracoes" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="edit-resolucao">Resolução:</label>
+                            <textarea id="edit-resolucao" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button id="salvar-edicoes" class="btn-primary">Salvar Alterações</button>
+                    <button id="cancelar-edicoes" class="btn-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 SoluçõesIT. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

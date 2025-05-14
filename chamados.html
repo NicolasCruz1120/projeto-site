@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - SoluçõesIT</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="chamados.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container-header">
+            <h1 class="logo">SoluçõesIT</h1>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="servicos.html">Serviços</a></li>
+                    <li><a href="cadastro.html">Cadastro</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="contato.html">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="welcome">
+        <h2>Bem vindo <span id="username">Usuário</span></h2>
+        <p>
+            Preencha o formulário abaixo para solicitar um chamado de manutenção. Nossa equipe entrará em contato em breve para avaliar o problema e apresentar o orçamento.
+        </p>
+
+        <a href="meuschamados.html">Meus chamados</a>
+    </section>
+
+    <main class="content">
+        <form action="" method="post" class="signup-container">
+            <label for="tipo-aparelho"><strong>Tipo de aparelho</strong></label>
+            <input type="text" id="tipo-aparelho" name="tipo-aparelho" required>
+
+            <label for="marca-modelo"><strong>Marca / Modelo</strong></label>
+            <input type="text" id="marca-modelo" name="marca-modelo" required>
+
+            <label for="problema"><strong>Descreva o problema</strong></label>
+            <textarea id="problema" name="problema" rows="4" style="padding: 10px; border-radius: 5px; resize: none;" required></textarea>
+
+
+            <button type="submit">Enviar chamado</button>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 SoluçõesIT. Todos os direitos reservados.</p>
+            <ul class="footer-links">
+                <li><a href="">Política de Privacidade</a></li>
+                <li><a href="">Termos de Uso</a></li>
+                <li><a href="">Contato</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

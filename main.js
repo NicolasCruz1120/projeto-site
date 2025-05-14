@@ -8,8 +8,8 @@ app.use(cors({
   origin: '*'
 }));
 
-app.get('/', (req, res) => {
-  res.send('Olá mundo!!');
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
 });
 
 app.get('/sugestoes', (req, res) => {
