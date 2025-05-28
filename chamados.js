@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    
+
     form.addEventListener("submit", function (event) {
         event.preventDefault();
 

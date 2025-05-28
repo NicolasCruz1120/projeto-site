@@ -41,6 +41,15 @@ document.addEventListener("DOMContentLoaded", function() {
     let chamados = JSON.parse(localStorage.getItem("chamados")) || [];
     let chamadoEditando = null;
 
+    function formatStatus(status) {
+            const statusMap = {
+                'aberto': 'Aberto',
+                'em_andamento': 'Em Andamento',
+                'resolvido': 'Resolvido'
+            };
+            return statusMap[status] || 'Aberto';
+        }
+
     function carregarChamados(filtro = "", status = "all") {
         lista.innerHTML = `
         <li class="lista-header">
@@ -89,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
             lista.appendChild(item);
         });
     }
+
 
     function abrirModalEdicao(index) {
         chamadoEditando = chamados[index];
