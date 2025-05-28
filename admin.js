@@ -90,15 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-        function formatStatus(status) {
-            const statusMap = {
-                'aberto': 'Aberto',
-                'em_andamento': 'Em Andamento',
-                'resolvido': 'Resolvido'
-            };
-            return statusMap[status] || 'Aberto';
-        }
-
     function abrirModalEdicao(index) {
         chamadoEditando = chamados[index];
         

@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 problema: problema.value.trim(),
                 data: new Date().toISOString(), 
                 dataExibicao: new Date().toLocaleString(),
-                status: "Pendente",
+                status: "Aberto",
                 acompanhamento: "Chamado recebido",
                 alteracoes: []
             };

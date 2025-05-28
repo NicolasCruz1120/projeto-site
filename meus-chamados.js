@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 'modal-marca': chamado.marcaModelo,
                 'modal-problema': chamado.problema,
                 'modal-data': formatDate(chamado.data),
-                'modal-status': chamado.status,
+                'modal-status': formatStatus(chamado.status),
                 'modal-acompanhamento': chamado.acompanhamento,
                 'modal-resolucao': chamado.resolucao
             };
@@ -60,6 +60,15 @@ document.addEventListener("DOMContentLoaded", function() {
         function fecharModal() {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
+        }
+
+        function formatStatus(status) {
+            const statusMap = {
+                'aberto': 'Aberto',
+                'em_andamento': 'Em Andamento',
+                'resolvido': 'Resolvido'
+            };
+            return statusMap[status] || 'Aberto';
         }
 
 
