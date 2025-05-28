@@ -127,20 +127,30 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        function formatDate(dateString) {
-            if (!dateString) return 'Não informado';
-            try {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('pt-BR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                });
-            } catch (e) {
-                console.error("Erro ao formatar data:", e);
-                return dateString;
-            }
-        }
+    function formatDate(timestamp) {
+        const date = new Date(timestamp);
+        return date.toLocaleString('pt-BR');
+    }
+
+    function isToday(date) {
+        const today = new Date();
+        return date.getDate() === today.getDate() &&
+               date.getMonth() === today.getMonth() &&
+               date.getFullYear() === today.getFullYear();
+    }
+
+    function isThisWeek(date) {
+        const today = new Date();
+        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+        return date >= firstDayOfWeek;
+    }
+
+    function isThisMonth(date) {
+        const today = new Date();
+        return date.getMonth() === today.getMonth() && 
+               date.getFullYear() === today.getFullYear();
+    }
+
 
     } catch (error) {
         console.error("Erro:", error.message);
