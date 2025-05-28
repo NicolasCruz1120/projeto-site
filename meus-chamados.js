@@ -132,26 +132,6 @@ document.addEventListener("DOMContentLoaded", function() {
         return date.toLocaleString('pt-BR');
     }
 
-    function isToday(date) {
-        const today = new Date();
-        return date.getDate() === today.getDate() &&
-               date.getMonth() === today.getMonth() &&
-               date.getFullYear() === today.getFullYear();
-    }
-
-    function isThisWeek(date) {
-        const today = new Date();
-        const firstDayOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
-        return date >= firstDayOfWeek;
-    }
-
-    function isThisMonth(date) {
-        const today = new Date();
-        return date.getMonth() === today.getMonth() && 
-               date.getFullYear() === today.getFullYear();
-    }
-
-
     } catch (error) {
         console.error("Erro:", error.message);
         alert("Erro: " + error.message);
