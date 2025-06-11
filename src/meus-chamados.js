@@ -98,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <button class="detalhes-btn" data-index="${index}">Detalhes</button>
                     ${usuario.admin ? '' : `<button class="remover-btn" data-index="${index}">Remover</button>`}
                 </span>
+                <span>${chamado.status === 'resolvido' ? 'Resolvido!': 'Em andamento'}</span>
             `;
             lista.appendChild(item);
         });
@@ -147,3 +148,4 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "login.html";
     }
 });
+
