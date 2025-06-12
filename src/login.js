@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
         registrarLog('Login', `Usuário ${username.value} fez login no sistema`)
         
         if (isAdmin) {
-            window.location.href = "admin.html";
+            window.location.href = "/frontend/admin.html";
         } else {
-            window.location.href = "chamados.html";
+            window.location.href = "/frontend/chamados.html";
         }
     });
 });

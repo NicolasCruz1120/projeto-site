@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
     } catch (error) {
         console.error("Erro:", error.message);
         alert("Erro: " + error.message);
-        window.location.href = "login.html";
+        window.location.href = "/frontend/login.html";
     }
 });
 

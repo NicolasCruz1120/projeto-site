@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado")) || {};
     if (!usuario.admin) {
         alert("Acesso restrito a administradores!");
-        window.location.href = "index.html";
+        window.location.href = "/frontend/index.html";
         return;
     }
 

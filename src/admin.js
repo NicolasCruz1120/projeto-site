@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (!usuario.admin) {
         alert("Acesso restrito a administradores!");
         registrarLog('Acesso restrito', `Usuário ${usuario.nome} tentou acessar o painel administrativo`)
-        window.location.href = "index.html";
+        window.location.href = "/frontend/index.html";
         return;
     }
 
