@@ -82,4 +82,17 @@
     background: #ffe8a1 !important;
 }
 
+.remover-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: background-color 0.2s;
+}
 
+.remover-btn:hover {
+    background-color: #c0392b;
+}

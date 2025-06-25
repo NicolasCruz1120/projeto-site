@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     try {
+
         const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
         if (!usuario) {
             throw new Error("Usuário não está logado");
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Usuário logado:", usuario);
         
-        // Mostra o nome do usuário na interface
+
         const usernameElement = document.getElementById("username");
         if (usernameElement) {
             usernameElement.textContent = usuario.nome;
@@ -23,13 +24,27 @@ document.addEventListener("DOMContentLoaded", function() {
             throw new Error("Elementos do DOM não encontrados");
         }
 
-        const chamados = JSON.parse(localStorage.getItem("chamados")) || [];
-        
-        // Filtra chamados pelo ID do usuário (admin vê todos)
-        const meusChamados = chamados.filter(c => 
-            usuario.admin || c.userId === usuario.id
-        );
 
+        const chamados = JSON.parse(localStorage.getItem("chamados")) || [];
+        const meusChamados = chamados.filter(c => usuario.admin || c.userId === usuario.id);
+
+
+        function formatDate(timestamp) {
+            if (!timestamp) return 'Não informado';
+            const date = new Date(timestamp);
+            return date.toLocaleString('pt-BR');
+        }
+
+        function formatStatus(status) {
+            const statusMap = {
+                'aberto': 'Aberto',
+                'em_andamento': 'Em Andamento',
+                'resolvido': 'Resolvido'
+            };
+            return statusMap[status] || 'Aberto';
+        }
+
+        // Modal Functions
         function abrirModal(chamado) {
             const fields = {
                 'modal-tipo': chamado.tipoAparelho,
@@ -57,58 +72,11 @@ document.addEventListener("DOMContentLoaded", function() {
             document.body.style.overflow = 'auto';
         }
 
-        function formatStatus(status) {
-            const statusMap = {
-                'aberto': 'Aberto',
-                'em_andamento': 'Em Andamento',
-                'resolvido': 'Resolvido'
-            };
-            return statusMap[status] || 'Aberto';
-        }
 
         closeBtn.addEventListener('click', fecharModal);
         window.addEventListener('click', function(event) {
             if (event.target === modal) {
                 fecharModal();
-            }
-        });
-
-        if (meusChamados.length === 0) {
-            lista.innerHTML = '<li class="sem-chamados"><p>Você ainda não criou nenhum chamado.</p></li>';
-            return;
-        }
-
-        lista.innerHTML = ''; 
-        meusChamados.forEach((chamado, index) => {
-            const item = document.createElement("li");
-            item.className = "chamado-item";
-            item.innerHTML = `
-                <span>${chamado.tipoAparelho || 'Não informado'}</span>
-                <span>${chamado.marcaModelo || 'Não informado'}</span>
-                <span class="truncate">${chamado.problema || 'Não informado'}</span>
-                <span>${formatDate(chamado.data) || 'Não informado'}</span>
-                <span class="status-badge ${chamado.status || 'aberto'}">
-                    ${formatStatus(chamado.status)}
-                </span>
-                <span class="acoes">
-                    <button class="detalhes-btn" data-index="${index}">Detalhes</button>
-                    ${usuario.admin ? '' : `<button class="remover-btn" data-index="${index}">Remover</button>`}
-                </span>
-            `;
-            lista.appendChild(item);
-        });
-
-        lista.addEventListener("click", function(e) {
-            const btn = e.target.closest('button');
-            if (!btn) return;
-            
-            const index = btn.getAttribute('data-index');
-            if (index === null) return;
-
-            if (btn.classList.contains('detalhes-btn')) {
-                abrirModal(meusChamados[index]);
-            } else if (btn.classList.contains('remover-btn')) {
-                removerChamado(index);
             }
         });
 
@@ -130,13 +98,52 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        function formatDate(timestamp) {
-            const date = new Date(timestamp);
-            return date.toLocaleString('pt-BR');
+        function renderChamados() {
+            lista.innerHTML = '';
+            
+            if (meusChamados.length === 0) {
+                lista.innerHTML = '<li class="sem-chamados"><p>Você ainda não criou nenhum chamado.</p></li>';
+                return;
+            }
+
+            meusChamados.forEach((chamado, index) => {
+                const item = document.createElement("li");
+                item.className = "chamado-item";
+                item.innerHTML = `
+                    <span>${chamado.tipoAparelho || 'Não informado'}</span>
+                    <span>${chamado.marcaModelo || 'Não informado'}</span>
+                    <span class="truncate">${chamado.problema || 'Não informado'}</span>
+                    <span>${formatDate(chamado.data)}</span>
+                    <span class="status-badge ${chamado.status || 'aberto'}">
+                        ${formatStatus(chamado.status)}
+                    </span>
+                    <span class="acoes">
+                        <button class="detalhes-btn" data-index="${index}">Detalhes</button>
+                        ${usuario.admin ? '' : `<button class="remover-btn" data-index="${index}">Remover</button>`}
+                    </span>
+                `;
+                lista.appendChild(item);
+            });
         }
 
+        lista.addEventListener("click", function(e) {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            
+            const index = btn.getAttribute('data-index');
+            if (index === null) return;
+
+            if (btn.classList.contains('detalhes-btn')) {
+                abrirModal(meusChamados[index]);
+            } else if (btn.classList.contains('remover-btn')) {
+                removerChamado(index);
+            }
+        });
+
+        renderChamados();
+
     } catch (error) {
-        console.error("Erro:", error.message);
+        console.error("Erro:", error);
         alert("Erro: " + error.message);
         window.location.href = "/frontend/login.html";
     }

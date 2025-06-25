@@ -11,11 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
     function carregarUsuarios() {
         return JSON.parse(localStorage.getItem("usuarios")) || [];
     }
-
+    // Salva a lista de usuários no localStorage
     function salvarUsuarios(usuarios) {
         localStorage.setItem("usuarios", JSON.stringify(usuarios));
     }
 
+    // Renderiza a lista de usuários
     function renderizarUsuarios() {
         const usuarios = carregarUsuarios();
         userList.innerHTML = "";
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             userList.appendChild(li);
         });
     }
-
+    // Inicializa a lista de usuários
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -78,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             modal.style.display = "none";
         }
     });
-
+    // Edita o usuário selecionado  
     editForm.addEventListener("submit", function (e) {
         e.preventDefault();
         const usuarios = carregarUsuarios();

@@ -23,16 +23,16 @@ function registrarLog(acao, mensagem, nivel = 'info') {
 }
 
 function registrarUsuario(novoUsuario) {
-    // Verifica se email já foi cadastrado
+
     const usuarioExistente = usuarios.find(u => u.email === novoUsuario.email);
     if (usuarioExistente) {
         throw new Error("E-mail já cadastrado");
     }
 
-    // Adiciona ID único ao novo usuário
+
     novoUsuario.id = gerarNovoId();
     
-    // Adiciona novo usuário
+
     usuarios.push(novoUsuario);
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
     
@@ -40,7 +40,7 @@ function registrarUsuario(novoUsuario) {
     return novoUsuario;
 }
 
-// Função para autenticar usuário
+
 function autenticarUsuario(email, senha) {
     const usuario = usuarios.find(u => u.email === email);
     
@@ -55,7 +55,7 @@ function autenticarUsuario(email, senha) {
     return usuario;
 }
 
-// Função para atualizar usuário
+
 function atualizarUsuario(id, dadosAtualizados) {
     const index = usuarios.findIndex(u => u.id === id);
     
@@ -63,7 +63,6 @@ function atualizarUsuario(id, dadosAtualizados) {
         throw new Error("Usuário não encontrado");
     }
 
-    // Mantém o ID original e atualiza outros campos
     usuarios[index] = { ...usuarios[index], ...dadosAtualizados };
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
     
@@ -79,13 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmarsenha = document.getElementById("confirmar-senha");
     const paginaatual = window.location.pathname.split('/').pop();
 
-    // Carrega usuários existentes
     usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    // Se for a página de cadastro (index.html), adiciona usuário admin padrão
+
     if (paginaatual === 'index.html' && usuarios.length === 0) {
         const adminPadrao = {
-            id: 1, // ID fixo para o admin padrão
+            id: 1, 
             nome: "admin",
             email: "admin@solucoesit.com",
             senha: "senhaadmin",
@@ -99,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         try {
-            // Validações básicas
+
             if (!email.value || !senha.value || !username.value) {
                 throw new Error("Por favor, preencha todos os campos.");
             }
@@ -110,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (paginaatual === 'index.html') {
-                // Validações específicas para cadastro
+
                 if (senha.value.length < 6) {
                     throw new Error("A senha deve ter pelo menos 6 caracteres.");
                 }
@@ -132,16 +130,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = "/frontend/login.html";
                 
             } else {
-                // Processo de login
+
                 const usuario = autenticarUsuario(email.value, senha.value);
-                
-                // Armazena usuário logado (com ID)
+
                 localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
 
                 registrarLog('Login', `Usuário ${usuario.nome} (ID: ${usuario.id}) fez login`);
                 alert("Login realizado com sucesso!");
 
-                // Redireciona conforme perfil
                 if (usuario.admin) {
                     window.location.href = "/frontend/admin.html";
                 } else {
