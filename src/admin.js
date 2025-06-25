@@ -32,6 +32,23 @@ function registrarLog(acao, mensagem, nivel = 'info') {
     localStorage.setItem("systemLogs", JSON.stringify(logs));
 }
 
+function exportarUsuarios() {
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    
+
+    const dataStr = JSON.stringify(usuarios, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+    const exportName = 'usuarios_' + new Date().toISOString().slice(0, 10) + '.json';
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportName);
+    linkElement.click();
+    
+    registrarLog('Exportação de dados', 'Usuários exportados para arquivo JSON', 'info');
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
 
