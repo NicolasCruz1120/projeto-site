@@ -1,7 +1,5 @@
-// Variável global para armazenar todos os usuários
 let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-// Gerador de ID único sequencial
 function gerarNovoId() {
     const maxId = usuarios.reduce((max, usuario) => Math.max(max, usuario.id || 0), 0);
     return maxId + 1;
@@ -15,7 +13,7 @@ function registrarLog(acao, mensagem, nivel = 'info') {
         timestamp: new Date().toISOString(),
         level: nivel,
         user: usuario.nome,
-        userId: usuario.id, // Agora com ID do usuário
+        userId: usuario.id,
         action: acao,
         message: mensagem,
         ip: ''
@@ -24,9 +22,8 @@ function registrarLog(acao, mensagem, nivel = 'info') {
     localStorage.setItem("systemLogs", JSON.stringify(logs));
 }
 
-// Função para registrar novo usuário
 function registrarUsuario(novoUsuario) {
-    // Verifica se usuário já existe
+    // Verifica se email já foi cadastrado
     const usuarioExistente = usuarios.find(u => u.email === novoUsuario.email);
     if (usuarioExistente) {
         throw new Error("E-mail já cadastrado");
