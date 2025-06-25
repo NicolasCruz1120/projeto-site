@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const username = usuario.nome;
-        console.log("Usuário logado:", username);
+        console.log("Usuário logado:", username, "ID:", usuario.id);
         
 
         const usernameElement = document.getElementById("username");
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 problema: problema.value.trim(),
                 data: new Date().toISOString(), 
                 dataExibicao: new Date().toLocaleString(),
-                status: "Aberto",
+                status: "aberto",
                 acompanhamento: "Chamado recebido",
                 alteracoes: []
             };

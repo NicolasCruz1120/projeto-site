@@ -1,0 +1,61 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: whitesmoke;
+    margin: 0;
+    padding: 0;
+}
+
+input[type=text], input[type=password], input[type=email] {
+    align-self: center;
+    padding: 12px;
+    margin: 8px 0;
+    width: 90%;
+    border: 1px solid #2c3e50;
+    border-radius: 5px;
+    background: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+    background-color: #b9c2ca;
+    outline: none;
+}
+
+strong {
+    color: white;
+}
+
+form {
+    width: 100%; 
+}
+
+.login-redirect {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.login-redirect a {
+    color: #00d4ff;
+    text-decoration: none;
+}
+
+.login-redirect a:hover {
+    text-decoration: underline;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content strong {
+    color: #2c3e50;
+    min-width: 150px;
+    display: inline-block;
+}
+
+

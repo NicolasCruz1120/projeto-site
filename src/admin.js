@@ -2,6 +2,21 @@ function abrirLogs() {
     window.location.href = "logs.html";
 }
 
+function abrirUsuarios() {
+    window.location.href = "gerenciar-usuarios.html";
+}
+
+function formatDate(dateString) {
+    const options = { 
+        day: '2-digit', 
+        month: '2-digit', 
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+    return new Date(dateString).toLocaleDateString('pt-BR', options);
+}
+
 function registrarLog(acao, mensagem, nivel = 'info') {
     const usuario = JSON.parse(localStorage.getItem("usuarioLogado")) || { nome: 'Sistema' };
     const logs = JSON.parse(localStorage.getItem("systemLogs")) || [];
@@ -43,81 +58,86 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function formatStatus(status) {
             const statusMap = {
-                'aberto': 'Aberto',
+                'aberto': 'aberto',
                 'em_andamento': 'Em Andamento',
                 'resolvido': 'Resolvido'
             };
-            return statusMap[status] || 'Aberto';
+            return statusMap[status] || 'aberto';
         }
+    function getNomeUsuario(userId) {
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const usuario = usuarios.find(u => u.id === userId);
+    return usuario ? usuario.nome : 'Usuário desconhecido';
+}
 
     function carregarChamados(filtro = "", status = "all") {
-        lista.innerHTML = `
-        <li class="lista-header">
-            <span><b>Usuário</b></span>
-            <span><b>Tipo</b></span>
-            <span><b>Marca/Modelo</b></span>
-            <span><b>Problema</b></span>
-            <span><b>Data</b></span>
-            <span><b>Status</b></span>
-            <span><b>Ações</b></span>
-        </li>
+    lista.innerHTML = `
+    <li class="lista-header">
+        <span><b>Usuário</b></span>
+        <span><b>Tipo</b></span>
+        <span><b>Marca/Modelo</b></span>
+        <span><b>Problema</b></span>
+        <span><b>Data</b></span>
+        <span><b>Status</b></span>
+        <span><b>Ações</b></span>
+    </li>
+    `;
+
+    const chamadosFiltrados = chamados.filter(chamado => {
+        const nomeUsuario = getNomeUsuario(chamado.userId).toLowerCase();
+        const matchesSearch = nomeUsuario.includes(filtro.toLowerCase()) ||
+                             chamado.tipoAparelho.toLowerCase().includes(filtro.toLowerCase()) ||
+                             chamado.marcaModelo.toLowerCase().includes(filtro.toLowerCase()) ||
+                             chamado.problema.toLowerCase().includes(filtro.toLowerCase());
+        
+        const matchesStatus = status === "all" || chamado.status === status;
+        
+        return matchesSearch && matchesStatus;
+    });
+
+    if (chamadosFiltrados.length === 0) {
+        lista.innerHTML += '<li class="sem-resultados"><p>Nenhum chamado encontrado</p></li>';
+        return;
+    }
+
+    chamadosFiltrados.forEach((chamado, index) => {
+        const item = document.createElement("li");
+        item.className = "chamado-item";
+        item.innerHTML = `
+            <span>${getNomeUsuario(chamado.userId)}</span>
+            <span>${chamado.tipoAparelho}</span>
+            <span>${chamado.marcaModelo}</span> 
+            <span>${chamado.problema.substring(0, 30)}${chamado.problema.length > 30 ? '...' : ''}</span>
+            <span>${formatDate(chamado.data)}</span>
+            <span class="status-badge ${chamado.status || 'aberto'}">
+                ${formatStatus(chamado.status)}
+            </span>
+            <span class="acoes">
+                <button class="detalhes-btn" data-index="${index}">Editar</button>
+            </span>
         `;
-
-        const chamadosFiltrados = chamados.filter(chamado => {
-            const matchesSearch = chamado.usuario.toLowerCase().includes(filtro.toLowerCase()) ||
-                                 chamado.tipoAparelho.toLowerCase().includes(filtro.toLowerCase()) ||
-                                 chamado.marcaModelo.toLowerCase().includes(filtro.toLowerCase()) ||
-                                 chamado.problema.toLowerCase().includes(filtro.toLowerCase());
-            
-            const matchesStatus = status === "all" || chamado.status === status;
-            
-            return matchesSearch && matchesStatus;
-        });
-
-        if (chamadosFiltrados.length === 0) {
-            lista.innerHTML += '<li class="sem-resultados"><p>Nenhum chamado encontrado</p></li>';
-            return;
-        }
-
-        chamadosFiltrados.forEach((chamado, index) => {
-            const item = document.createElement("li");
-            item.className = "chamado-item";
-            item.innerHTML = `
-                <span>${chamado.usuario}</span>
-                <span>${chamado.tipoAparelho}</span>
-                <span>${chamado.marcaModelo}</span> 
-                <span>${chamado.problema.substring(0, 30)}${chamado.problema.length > 30 ? '...' : ''}</span>
-                <span>${chamado.data}</span>
-                <span class="status-badge ${chamado.status || 'aberto'}">
-                    ${formatStatus(chamado.status)}
-                </span>
-                <span class="acoes">
-                    <button class="detalhes-btn" data-index="${index}">Editar</button>
-                </span>
-            `;
-            lista.appendChild(item);
-        });
-    }
+        lista.appendChild(item);
+    });
+}
 
 
-    function abrirModalEdicao(index) {
-        chamadoEditando = chamados[index];
-        
-        document.getElementById("modal-usuario").textContent = chamadoEditando.usuario;
-        document.getElementById("modal-tipo").textContent = chamadoEditando.tipoAparelho;
-        document.getElementById("modal-marca").textContent = chamadoEditando.marcaModelo;
-        document.getElementById("modal-data").textContent = chamadoEditando.data;
-        document.getElementById("modal-problema").textContent = chamadoEditando.problema;
+function abrirModalEdicao(index) {
+    chamadoEditando = chamados[index];
     
-        document.getElementById("edit-status").value = chamadoEditando.status || "aberto";
-        document.getElementById("edit-acompanhamento").value = chamadoEditando.acompanhamento || "";
-        document.getElementById("edit-alteracoes").value = chamadoEditando.alteracoes || "";
-        document.getElementById("edit-resolucao").value = chamadoEditando.resolucao || "";
-        
+    document.getElementById("modal-usuario").textContent = getNomeUsuario(chamadoEditando.userId);
+    document.getElementById("modal-tipo").textContent = chamadoEditando.tipoAparelho;
+    document.getElementById("modal-marca").textContent = chamadoEditando.marcaModelo;
+    document.getElementById("modal-data").textContent = formatDate(chamadoEditando.data);
+    document.getElementById("modal-problema").textContent = chamadoEditando.problema;
 
-        modal.style.display = "flex";
-        document.body.style.overflow = "hidden";
-    }
+    document.getElementById("edit-status").value = chamadoEditando.status || "aberto";
+    document.getElementById("edit-acompanhamento").value = chamadoEditando.acompanhamento || "";
+    document.getElementById("edit-alteracoes").value = chamadoEditando.alteracoes || "";
+    document.getElementById("edit-resolucao").value = chamadoEditando.resolucao || "";
+    
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
 
     function salvarEdicoes() {
         if (!chamadoEditando) return;

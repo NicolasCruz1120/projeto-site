@@ -15,7 +15,6 @@
             <nav class="navbar">
                 <ul class="nav-links">
                     <li><a href="admin.html">Início</a></li>
-                    <li><a href="meus-chamados.html">Chamados</a></li>
                     <li><a href="admin.html" class="active">Painel Admin</a></li>
                     <li><a href="login.html">Sair</a></li>
                 </ul>
@@ -28,15 +27,15 @@
 
             <div class="dashboard-card">
                 <h3><i class="fas fa-ticket-alt"></i> Chamados</h3>
-                <button class="dashboard-btn" onclick="filtrarChamados('aberto')">
+                <button class="dashboard-btn" onclick="chamadosFiltrados('aberto')">
                     <i class="fas fa-exclamation-circle"></i> Pendentes
                     <span class="badge" id="badge-pendentes">0</span>
                 </button>
-                <button class="dashboard-btn" onclick="filtrarChamados('em_andamento')">
-                    <i class="fas fa-tools"></i> Em Andamento
+                <button class="dashboard-btn" onclick="chamadosFiltrados('em_andamento')">
+                <i class="fas fa-tools"></i> Em Andamento
                     <span class="badge" id="badge-andamento">0</span>
                 </button>
-                <button class="dashboard-btn" onclick="filtrarChamados('resolvido')">
+                <button class="dashboard-btn" onclick="chamadosFiltrados('resolvido')">
                     <i class="fas fa-check-circle"></i> Resolvidos
                     <span class="badge" id="badge-resolvidos">0</span>
                 </button>
@@ -45,7 +44,7 @@
 
             <div class="dashboard-card">
                 <h3><i class="fas fa-users"></i> Usuários</h3>
-                <button class="dashboard-btn" onclick="abrirModalUsuarios()">
+                <button class="dashboard-btn" onclick="abrirUsuarios()">
                     <i class="fas fa-user-cog"></i> Gerenciar
                 </button>
                 <button class="dashboard-btn" onclick="exportarUsuarios()">
@@ -57,27 +56,14 @@
             </div>
 
             <div class="dashboard-card">
-                <h3><i class="fas fa-chart-bar"></i> Relatórios</h3>
-                <button class="dashboard-btn" onclick="gerarRelatorio('semanal')">
-                    <i class="fas fa-calendar-week"></i> Semanal
-                </button>
-                <button class="dashboard-btn" onclick="gerarRelatorio('mensal')">
-                    <i class="fas fa-calendar-alt"></i> Mensal
-                </button>
-                <button class="dashboard-btn" onclick="abrirAnalytics()">
-                    <i class="fas fa-chart-line"></i> Estatísticas
-                </button>
-            </div>
-
-            <div class="dashboard-card">
                 <h3><i class="fas fa-tools"></i> Ferramentas</h3>
-                <button class="dashboard-btn" onclick="abrirBackup()">
+                <button class="dashboard-btn" onclick="">
                     <i class="fas fa-database"></i> Backup
                 </button>
                 <button class="dashboard-btn" onclick="abrirLogs()">
                     <i class="fas fa-clipboard-list"></i> Logs do Sistema
                 </button>
-                <button class="dashboard-btn btn-alert" onclick="abrirManutencao()">
+                <button class="dashboard-btn btn-alert" onclick="">
                     <i class="fas fa-power-off"></i> Modo Manutenção
                 </button>
             </div>

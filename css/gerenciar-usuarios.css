@@ -1,0 +1,165 @@
+/* Seção principal de gerenciamento */
+.user-management {
+    display: flex;
+    flex-direction: column;
+    justify-self: auto;
+    max-width: 900px;
+    margin: 30px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    padding: 30px 40px;
+}
+
+.user-management h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    font-size: 2em;
+}
+
+.user-form {
+    align-self: center;
+    margin-bottom: 40px;
+    background: #f7f9fa;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+}
+
+.user-form h3 {
+    margin-top: 0;
+    color: #2980b9;
+    font-size: 1.2em;
+}
+
+.user-form label {
+    color: #34495e;
+    margin-top: 10px;
+    display: block;
+}
+
+.user-form input {
+    margin-bottom: 15px;
+}
+
+.user-form button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Lista de usuários */
+.user-list {
+    background: #f7f9fa;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(44,62,80,0.04);
+}
+
+.user-list h3 {
+    color: #2980b9;
+    font-size: 1.2em;
+    margin-top: 0;
+}
+
+#user-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#user-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    padding: 12px 18px;
+    transition: box-shadow 0.2s;
+}
+
+#user-list li:hover {
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+}
+
+strong {
+    color: black;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.user-actions button {
+    padding: 7px 14px;
+    font-size: 0.95em;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.user-actions .edit-btn {
+    background: #3498db;
+    color: #fff;
+}
+
+.user-actions .edit-btn:hover {
+    background: #217dbb;
+}
+
+.user-actions .delete-btn {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.user-actions .delete-btn:hover {
+    background: #c0392b;
+}
+
+/* Modal de edição de usuário */
+#modal-editar-usuario .modal-content {
+    max-width: 400px;
+    padding: 30px 25px;
+}
+
+#modal-editar-usuario input {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#modal-editar-usuario button[type="submit"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#delete-user-btn {
+    width: 100%;
+    background: #e74c3c;
+    color: #fff;
+    margin-top: 0;
+}
+
+#delete-user-btn:hover {
+    background: #c0392b;
+}
+
+@media (max-width: 600px) {
+    .user-management {
+        padding: 10px 2vw;
+    }
+    .user-form, .user-list {
+        padding: 10px 2vw;
+    }
+    #modal-editar-usuario .modal-content {
+        padding: 15px 5vw;
+    }
+}

@@ -7,17 +7,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Usuário logado:", usuario);
         
-        const username = usuario.nome;
-        localStorage.setItem("username", username);
-        console.log("Nome de usuário:", username);
-
+        // Mostra o nome do usuário na interface
         const usernameElement = document.getElementById("username");
         if (usernameElement) {
-            usernameElement.textContent = username;
+            usernameElement.textContent = usuario.nome;
         } else {
             console.warn("Elemento para exibir o username não encontrado");
         }
-
 
         const modal = document.getElementById('modal-detalhes');
         const closeBtn = document.querySelector('.close-modal');
@@ -29,11 +25,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const chamados = JSON.parse(localStorage.getItem("chamados")) || [];
         
-
+        // Filtra chamados pelo ID do usuário (admin vê todos)
         const meusChamados = chamados.filter(c => 
-            usuario.admin || c.usuario === username
+            usuario.admin || c.userId === usuario.id
         );
-
 
         function abrirModal(chamado) {
             const fields = {
@@ -71,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return statusMap[status] || 'Aberto';
         }
 
-
         closeBtn.addEventListener('click', fecharModal);
         window.addEventListener('click', function(event) {
             if (event.target === modal) {
@@ -84,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-
         lista.innerHTML = ''; 
         meusChamados.forEach((chamado, index) => {
             const item = document.createElement("li");
@@ -94,15 +87,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 <span>${chamado.marcaModelo || 'Não informado'}</span>
                 <span class="truncate">${chamado.problema || 'Não informado'}</span>
                 <span>${formatDate(chamado.data) || 'Não informado'}</span>
+                <span class="status-badge ${chamado.status || 'aberto'}">
+                    ${formatStatus(chamado.status)}
+                </span>
                 <span class="acoes">
                     <button class="detalhes-btn" data-index="${index}">Detalhes</button>
                     ${usuario.admin ? '' : `<button class="remover-btn" data-index="${index}">Remover</button>`}
                 </span>
-                <span>${chamado.status === 'resolvido' ? 'Resolvido!': 'Em andamento'}</span>
             `;
             lista.appendChild(item);
         });
-
 
         lista.addEventListener("click", function(e) {
             const btn = e.target.closest('button');
@@ -118,13 +112,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-
         function removerChamado(localIndex) {
             if (!confirm("Deseja realmente remover este chamado?")) return;
 
             const chamadoParaRemover = meusChamados[localIndex];
             const indiceReal = chamados.findIndex(
-                c => c.usuario === chamadoParaRemover.usuario &&
+                c => c.userId === chamadoParaRemover.userId &&
                      c.data === chamadoParaRemover.data &&
                      c.problema === chamadoParaRemover.problema
             );
@@ -137,10 +130,10 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-    function formatDate(timestamp) {
-        const date = new Date(timestamp);
-        return date.toLocaleString('pt-BR');
-    }
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleString('pt-BR');
+        }
 
     } catch (error) {
         console.error("Erro:", error.message);
@@ -148,4 +141,3 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "/frontend/login.html";
     }
 });
-

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Usuários - SoluçõesIT</title>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/welcome.css">
+    <link rel="stylesheet" href="/css/chamados.css">
+    <link rel="stylesheet" href="/css/modal.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/logs.css">
+    <link rel="stylesheet" href="/css/utils.css">
+    <link rel="stylesheet" href="/css/gerenciar-usuarios.css">
+
+    <script src="/src/gerenciar-usuarios.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container-header">
+            <h1 class="logo">SoluçõesIT - Gerenciamento de Usuários</h1>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="admin.html">Início</a></li>
+                    <li><a href="meus-chamados.html">Chamados</a></li>
+                    <li><a href="admin.html" class="active">Painel Admin</a></li>
+                    <li><a href="login.html">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="user-management">
+            <h2>Gerenciar Usuários</h2>
+            <div class="user-form">
+                <h3>Criar Novo Usuário</h3>
+                <form id="user-form">
+                    <label for="email"><strong>Email</strong></label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="username"><strong>Nome de Usuário</strong></label>
+                    <input type="text" id="username" name="username" required>
+
+                    <label for="senha"><strong>Senha</strong></label>
+                    <input type="password" id="senha" name="senha" required>
+                    <button type="submit">Criar Usuário</button>
+                </form>
+            </div>
+
+            <div class="user-list">
+                <h3>Usuários Existentes</h3>
+                <ul id="user-list">
+                    <!-- Lista de usuários aparece aqui -->
+                </ul>
+            </div>
+        </section>
+
+        <div id="modal-editar-usuario" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Editar Usuário</h2>
+                <form id="edit-user-form">
+                    <input type="text" id="edit-username" placeholder="Nome de Usuário" required>
+                    <input type="email" id="edit-email" placeholder="E-mail" required>
+                    <input type="password" id="edit-password" placeholder="Nova Senha (deixe em branco para não alterar)">
+                    <button type="submit">Salvar Alterações</button>
+                    <button type="button" id="delete-user-btn">Excluir Usuário</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 SoluçõesIT. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

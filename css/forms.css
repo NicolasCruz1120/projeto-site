@@ -1,0 +1,63 @@
+button {
+    padding: 12px;
+    margin-top: 10px;
+    background: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+    background: #1f6391;
+}
+
+
+#lista-chamados li button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #c0392b;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: start;
+}
+
+#lista-chamados li button:hover {
+    background-color: #e74c3c;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.logs-pagination button {
+    padding: 8px 15px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
